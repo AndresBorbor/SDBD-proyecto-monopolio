@@ -64,7 +64,10 @@ def imprimirTipoDinero(dineroP,tuplaP):
 
 #FUNCION QUE GENERA EL STRING PARA LA CONSULTA Y DEVUELVE LA LISTA DE TUPLAS DE REGISTROS
 def seleccionDineroJugador(nombreJugadorP,dineroP,conecctionP):
-    selec = "select nombre, ficha,"+dineroP+ " from jugador where nombre = '"+ nombreJugadorP + "'"
+    if(dineroP == "dineroTotal"):
+        selec = "select nombre, ficha,"+dineroP+ " from jugador where nombre = '"+ nombreJugadorP + "'"
+    else:
+        selec = "select nombre, ficha, (dineroBanco+dineroComercios) as dinero_total"+ " from jugador where nombre = '"+ nombreJugadorP + "'"
     results = conecctionP.execute(selec).fetchmany(size=100)
     return results
 
