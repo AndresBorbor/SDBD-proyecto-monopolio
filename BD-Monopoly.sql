@@ -77,8 +77,215 @@ create table Lanzamiento(
     constraint consLanzamiento_fk_jugador foreign key(jugador) references Jugador(id_jugador)
 );
 
--- INSERCION DE DATOS
--- insert into "nombre_tabla" (columna1,columna2...) values (
--- 		"valor para columna1",
--- 		"valor para columna2"
--- );
+-- Insersion datos tabla jugador
+-- 1
+insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
+	"joseph",
+    1500,
+    0,
+    0,
+    "caballo"
+);
+-- 2
+insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
+	"daniela",
+    2000,
+    200,
+    500,
+    "gato"
+);
+insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
+	"andres",
+    1000,
+    200,
+    0,
+    "barco"
+);
+-- 3
+insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
+	"anyello",
+    3000,
+    400,
+    100,
+    "zapato"
+);
+-- 4
+insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
+	"issac",
+    1900,
+    400,
+    200,
+    "sapo"
+);
+-- 5
+insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
+	"karen",
+    4000,
+    800,
+    150,
+    "carro"
+);
+-- 6
+insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
+	"melissa",
+    3000,
+    400,
+    100,
+    "sombrero"
+);
+-- 7
+insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
+	"guale",
+    3000,
+    0,
+    800,
+    "botella"
+);
+-- 8 
+insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
+	"gloria",
+    4000,
+    800,
+    350,
+    "avion"
+);
+-- 9 
+insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
+	"pamela",
+    5000,
+    800,
+    450,
+    "casa"
+);
+-- 10 
+
+insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
+	"masnuel",
+    4000,
+    400,
+    450,
+    "tiburon"
+);
+
+-- insersion datos tarjeta
+-- 1
+insert into Tarjeta(tipoTarjeta, descripcion) values(
+	1,
+    "sale de la carcel"
+);
+-- 2
+insert into Tarjeta(tipoTarjeta, descripcion) values(
+	2,
+    "cobre 100$"
+);
+-- 3
+insert into Tarjeta(tipoTarjeta, descripcion) values(
+	2,
+    "pague 50$ al banco"
+);
+-- 4 
+insert into Tarjeta(tipoTarjeta, descripcion) values(
+	1,
+    "exceso de velocidad pague 100$"
+);
+-- 5 
+insert into Tarjeta(tipoTarjeta, descripcion) values(
+	1,
+    "es su cumpleaños, le regalan 50$"
+);
+
+-- insersion tabla Tarjeta_Jugador
+-- 1
+
+insert into Tarjeta_Jugador(jugador,tarjeta) values(
+	1,4
+);
+-- 2 
+insert into Tarjeta_Jugador(jugador,tarjeta) values(
+	1,3
+);
+-- 3
+insert into Tarjeta_Jugador(jugador,tarjeta) values(
+	1,5
+);
+-- 4 
+insert into Tarjeta_Jugador(jugador,tarjeta) values(
+	2,3
+);
+-- 5
+insert into Tarjeta_Jugador(jugador,tarjeta) values(
+	3,1
+);
+-- 6
+insert into Tarjeta_Jugador(jugador,tarjeta) values(
+	4,4
+);
+-- 7
+insert into Tarjeta_Jugador(jugador,tarjeta) values(
+	5,1
+);
+-- 8 
+insert into Tarjeta_Jugador(jugador,tarjeta) values(
+	5,3
+);
+-- 9
+insert into Tarjeta_Jugador(jugador,tarjeta) values(
+	7,5
+);
+
+-- 10
+insert into Tarjeta_Jugador(jugador,tarjeta) values(
+	9,4
+);
+
+-- creacion de la tabla banco
+-- 1
+insert into Banco(id_banco,nombre) values(
+	1,
+	"pago de tarjeta"
+);
+-- 2
+insert into Banco(id_banco,nombre) values(
+	2,
+	"pago de casa"
+);
+-- 3
+insert into Banco(id_banco,nombre) values(
+	3,
+	"pago de hotel"
+);
+-- 4
+insert into Banco(id_banco,nombre) values(
+	4,
+	"le paga a usted"
+);
+-- 5 
+insert into Banco(id_banco,nombre) values(
+	5,
+	"compra casa"
+);
+-- 6 
+insert into Banco(id_banco,nombre) values(
+	6,
+	"compra hotel"
+);
+-- 7
+insert into Banco(id_banco,nombre) values(
+	7,
+	"pago de tarjeta"
+);
+-- 8
+insert into Banco(id_banco,nombre) values(
+	8,
+	"pago de tarjetas"
+);
+-- 9
+insert into Banco(id_banco,nombre) values(
+	9,
+	"pago por Go"
+);
+ -- 10
+ insert into Banco(id_banco,nombre) values(
+	10,
+	"pago por Go"
+);
