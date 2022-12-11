@@ -81,7 +81,6 @@ create table Lanzamiento(
 -- 1
 insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
 	"joseph",
-    1500,
     0,
     0,
     "caballo"
@@ -89,14 +88,12 @@ insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values
 -- 2
 insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
 	"daniela",
-    2000,
     200,
     500,
     "gato"
 );
 insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
 	"andres",
-    1000,
     200,
     0,
     "barco"
@@ -104,7 +101,6 @@ insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values
 -- 3
 insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
 	"anyello",
-    3000,
     400,
     100,
     "zapato"
@@ -112,7 +108,6 @@ insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values
 -- 4
 insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
 	"issac",
-    1900,
     400,
     200,
     "sapo"
@@ -120,7 +115,6 @@ insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values
 -- 5
 insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
 	"karen",
-    4000,
     800,
     150,
     "carro"
@@ -128,7 +122,6 @@ insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values
 -- 6
 insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
 	"melissa",
-    3000,
     400,
     100,
     "sombrero"
@@ -136,7 +129,6 @@ insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values
 -- 7
 insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
 	"guale",
-    3000,
     0,
     800,
     "botella"
@@ -144,7 +136,6 @@ insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values
 -- 8 
 insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
 	"gloria",
-    4000,
     800,
     350,
     "avion"
@@ -152,7 +143,6 @@ insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values
 -- 9 
 insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
 	"pamela",
-    5000,
     800,
     450,
     "casa"
@@ -161,7 +151,6 @@ insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values
 
 insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
 	"masnuel",
-    4000,
     400,
     450,
     "tiburon"
