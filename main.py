@@ -107,8 +107,11 @@ def menuTarjeta(conecctionP):
     print()
     if(opcion == 1):
         print()
+    elif(opcion == 2):
+        print()
     elif(opcion==3):
         menu()
+#FUNCION PARA SELECCIONAR TERRENO
 def seleccionTerreno(columnaConsultaP,valorRegistroP,conecctionP,colorP=""):
     selec = "select nombre, ficha,"+columnaConsultaP+ " from jugador where nombre = '"+ valorRegistroP + "'"
     results = conecctionP.execute(selec).fetchmany(size=100)
