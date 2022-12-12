@@ -14,7 +14,7 @@ create table Jugador(
 
 -- Tabla Tarjeta
 create table Tarjeta(
-	id_tarjeta int auto_increment primary key unique,
+	id_tarjeta int auto_increment primary key unique, 
     tipoTarjeta enum('arcaComunal','casualidad'),
     descripcion varchar(50)
 );
@@ -87,81 +87,71 @@ insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values
     "caballo"
 );
 -- 2
-insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
+insert into Jugador(nombre,dineroBanco,dineroComercios,ficha) values(
 	"daniela",
-    2000,
     200,
     500,
     "gato"
 );
-insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
+insert into Jugador(nombre,dineroBanco,dineroComercios,ficha) values(
 	"andres",
-    1000,
     200,
     0,
     "barco"
 );
 -- 3
-insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
+insert into Jugador(nombre,dineroBanco,dineroComercios,ficha) values(
 	"anyello",
-    3000,
     400,
     100,
     "zapato"
 );
 -- 4
-insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
+insert into Jugador(nombre,dineroBanco,dineroComercios,ficha) values(
 	"issac",
-    1900,
     400,
     200,
     "sapo"
 );
 -- 5
-insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
+insert into Jugador(nombre,dineroBanco,dineroComercios,ficha) values(
 	"karen",
-    4000,
     800,
     150,
     "carro"
 );
 -- 6
-insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
+insert into Jugador(nombre,dineroBanco,dineroComercios,ficha) values(
 	"melissa",
-    3000,
     400,
     100,
     "sombrero"
 );
 -- 7
-insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
+insert into Jugador(nombre,dineroBanco,dineroComercios,ficha) values(
 	"guale",
-    3000,
     0,
     800,
     "botella"
 );
 -- 8 
-insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
+insert into Jugador(nombre,dineroBanco,dineroComercios,ficha) values(
 	"gloria",
-    4000,
     800,
     350,
     "avion"
 );
 -- 9 
-insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
+insert into Jugador(nombre,dineroBanco,dineroComercios,ficha) values(
 	"pamela",
-    5000,
     800,
     450,
     "casa"
 );
 -- 10 
 
-insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
+insert into Jugador(nombre,dineroBanco,dineroComercios,ficha) values(
 	"masnuel",
-    4000,
     400,
     450,
     "tiburon"
@@ -242,50 +232,231 @@ insert into Tarjeta_Jugador(jugador,tarjeta) values(
 -- 1
 insert into Banco(id_banco,nombre) values(
 	1,
-	"pago de tarjeta"
+	"Banco de la partida"
+);
+
+-- creacion de la tabla Terreno
+-- 1
+insert into Terreno(color,tipo,casas,hoteles,alquiler) values (
+	"amarillo 1",
+    2,
+    0,
+    0,
+    20
 );
 -- 2
-insert into Banco(id_banco,nombre) values(
-	2,
-	"pago de casa"
+insert into Terreno(color,tipo,casas,hoteles,alquiler) values (
+	"amarillo 2",
+    2,
+    0,
+    0,
+    10
 );
--- 3
-insert into Banco(id_banco,nombre) values(
-	3,
-	"pago de hotel"
+-- 3 
+insert into Terreno(color,tipo,casas,hoteles,alquiler) values (
+	"amarillo 3",
+    2,
+    0,
+    0,
+    15
 );
 -- 4
-insert into Banco(id_banco,nombre) values(
-	4,
-	"le paga a usted"
+insert into Terreno(color,tipo,casas,hoteles,alquiler) values (
+	"amarillo",
+    2,
+    0,
+    0,
+    25
 );
 -- 5 
-insert into Banco(id_banco,nombre) values(
-	5,
-	"compra casa"
+insert into Terreno(color,tipo,casas,hoteles,alquiler) values (
+	"celestes",
+    1,
+    0,
+    0,
+    50
 );
 -- 6 
-insert into Banco(id_banco,nombre) values(
-	6,
-	"compra hotel"
+insert into Terreno(color,tipo,casas,hoteles,alquiler) values (
+	"celestes",
+    1,
+    0,
+    0,
+    50
 );
 -- 7
-insert into Banco(id_banco,nombre) values(
-	7,
-	"pago de tarjeta"
+insert into Terreno(color,tipo,casas,hoteles,alquiler) values (
+	"rojo",
+    2,
+    0,
+    0,
+    14
 );
 -- 8
-insert into Banco(id_banco,nombre) values(
+insert into Terreno(color,tipo,casas,hoteles,alquiler) values (
+	"rojo",
+    2,
+    0,
+    0,
+    10
+);
+-- 9 
+insert into Terreno(color,tipo,casas,hoteles,alquiler) values (
+	"rojo",
+    2,
+    0,
+    0,
+    5
+);
+-- 10 
+insert into Terreno(color,tipo,casas,hoteles,alquiler) values (
+	"rojo",
+    2,
+    0,
+    0,
+    20
+);
+
+-- creacion de la tabla Ventas
+-- 1 
+insert into Venta(jugador,terreno,banco,turno) values(
+	1,
+    3,
+    1,
+    2
+);
+-- 2
+insert into Venta(jugador,terreno,banco,turno) values(
+	4,
+    2,
+    1,
+    1
+);
+-- 3
+insert into Venta(jugador,terreno,banco,turno) values(
+	4,
+    2,
+    1,
+    3
+);
+-- 4
+insert into Venta(jugador,terreno,banco,turno) values(
+	6,
+    2,
+    1,
+    4
+);
+-- 5
+insert into Venta(jugador,terreno,banco,turno) values(
+	7,
+    8,
+    1,
+    4
+);
+-- 6
+insert into Venta(jugador,terreno,banco,turno) values(
+	9,
+    6,
+    1,
+    4
+);
+-- 7 
+insert into Venta(jugador,terreno,banco,turno) values(
+	3,
+    2,
+    1,
+    4
+);
+-- 8 
+insert into Venta(jugador,terreno,banco,turno) values(
 	8,
-	"pago de tarjetas"
+    3,
+    1,
+    5
 );
 -- 9
-insert into Banco(id_banco,nombre) values(
-	9,
-	"pago por Go"
+insert into Venta(jugador,terreno,banco,turno) values(
+	2,
+    5,
+    1,
+    7
 );
- -- 10
- insert into Banco(id_banco,nombre) values(
+-- 10
+insert into Venta(jugador,terreno,banco,turno) values(
+	7,
+    5,
+    1,
+    2
+);
+
+-- creacion de la clase Compra
+-- 1
+insert into Compra(jugador,terreno,banco,turno) values(
+	2,
+    4,
+    1,
+    2
+);
+-- 2
+insert into Compra(jugador,terreno,banco,turno) values(
+	6,
+    3,
+    1,
+    5
+);
+-- 3
+insert into Compra(jugador,terreno,banco,turno) values(
+	7,
+    1,
+    1,
+    2
+);
+-- 4 
+insert into Compra(jugador,terreno,banco,turno) values(
 	10,
-	"pago por Go"
+    6,
+    1,
+    1
+);
+-- 5
+insert into Compra(jugador,terreno,banco,turno) values(
+	1,
+    1,
+    1,
+    5
+);
+ -- 6
+ insert into Compra(jugador,terreno,banco,turno) values(
+	6,
+    5,
+    1,
+    7
+);
+ -- 7
+ insert into Compra(jugador,terreno,banco,turno) values(
+	9,
+    3,
+    1,
+    1
+);
+-- 8
+insert into Compra(jugador,terreno,banco,turno) values(
+	5,
+    9,
+    1,
+    1
+);
+-- 9
+insert into Compra(jugador,terreno,banco,turno) values(
+	8,
+    9,
+    1,
+    10
+);
+-- 10
+insert into Compra(jugador,terreno,banco,turno) values(
+	3,
+    6,
+    1,
+    5
 );
