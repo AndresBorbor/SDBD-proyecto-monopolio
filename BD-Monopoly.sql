@@ -520,6 +520,6 @@ insert into Lanzamiento(dado1, dado2, jugador) values(
 -- 10 
 insert into Lanzamiento(dado1, dado2, jugador) values(
 	4,
-    5,
+    3,
     1
 );
