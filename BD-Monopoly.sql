@@ -184,7 +184,7 @@ insert into Tarjeta(tipoTarjeta, descripcion) values(
     "es su cumpleaños, le regalan 50$"
 );
 
--- insersion tabla Tarjeta_Jugador
+-- insersion datos Tarjeta_Jugador
 -- 1
 
 insert into Tarjeta_Jugador(jugador,tarjeta) values(
@@ -228,14 +228,14 @@ insert into Tarjeta_Jugador(jugador,tarjeta) values(
 	9,4
 );
 
--- creacion de la tabla banco
+-- insercion datos Banco
 -- 1
 insert into Banco(id_banco,nombre) values(
 	1,
 	"Banco de la partida"
 );
 
--- creacion de la tabla Terreno
+-- insercion datos Terreno 
 -- 1
 insert into Terreno(color,tipo,casas,hoteles,alquiler) values (
 	"amarillo 1",
@@ -317,7 +317,7 @@ insert into Terreno(color,tipo,casas,hoteles,alquiler) values (
     20
 );
 
--- creacion de la tabla Ventas
+-- insercion datos Ventas
 -- 1 
 insert into Venta(jugador,terreno,banco,turno) values(
 	1,
@@ -389,7 +389,7 @@ insert into Venta(jugador,terreno,banco,turno) values(
     2
 );
 
--- creacion de la clase Compra
+-- insercion datos Compra 
 -- 1
 insert into Compra(jugador,terreno,banco,turno) values(
 	2,
@@ -459,4 +459,67 @@ insert into Compra(jugador,terreno,banco,turno) values(
     6,
     1,
     5
+);
+-- insercion datos lanzamiento 
+-- 1
+insert into Lanzamiento(dado1, dado2, jugador) values(
+	4,
+    5,
+    1
+);
+-- 2
+insert into Lanzamiento(dado1, dado2, jugador) values(
+	2,
+    3,
+    6
+);
+-- 3
+
+insert into Lanzamiento(dado1, dado2, jugador) values(
+	3,
+    6,
+    7
+);
+-- 4
+
+insert into Lanzamiento(dado1, dado2, jugador) values(
+	4,
+    6,
+    1
+);
+-- 5
+insert into Lanzamiento(dado1, dado2, jugador) values(
+	2,
+    5,
+    1
+);
+-- 6
+insert into Lanzamiento(dado1, dado2, jugador) values(
+	4,
+    2,
+    1
+);
+-- 7
+insert into Lanzamiento(dado1, dado2, jugador) values(
+	4,
+    1,
+    1
+);
+-- 8
+insert into Lanzamiento(dado1, dado2, jugador) values(
+	1,
+    5,
+    1
+);
+-- 9 
+insert into Lanzamiento(dado1, dado2, jugador) values(
+	4,
+    5,
+    1
+);
+-- 10 
+insert into Lanzamiento(dado1, dado2, jugador) values(
+	4,
+    5,
+    1
 );
