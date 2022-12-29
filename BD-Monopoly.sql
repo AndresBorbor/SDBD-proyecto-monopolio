@@ -79,9 +79,8 @@ create table Lanzamiento(
 
 -- Insersion datos tabla jugador
 -- 1
-insert into Jugador(nombre,dineroTotal,dineroBanco,dineroComercios,ficha) values(
+insert into Jugador(nombre,dineroBanco,dineroComercios,ficha) values(
 	"joseph",
-    1500,
     0,
     0,
     "caballo"
@@ -520,6 +519,6 @@ insert into Lanzamiento(dado1, dado2, jugador) values(
 -- 10 
 insert into Lanzamiento(dado1, dado2, jugador) values(
 	4,
-    3,
-    1
+    3,
+    1
 );

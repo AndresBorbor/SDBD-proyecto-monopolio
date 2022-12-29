@@ -1,11 +1,16 @@
 from sqlalchemy import create_engine, Table, MetaData,select
 import pymysql
+from insertar import inserciones as insert
+from editar import ediciones as edit
+from eliminar import eliminaciones as delete
+from consultar import consultas as query
 
 def menu():
     engine = create_engine('mysql+pymysql://root:1234@127.0.0.1:3306/BD_Monopoly')
     conecction = engine.connect()
     muletilla = True
     while(muletilla):
+        
         print("Bienvenido a la base de monopoly")
         print("1. Administrar Jugador")
         print("2. Administrar Terreno")
@@ -39,7 +44,7 @@ def menu():
 def consultarDineroJugador(nombreJugadorP,dineroP, conecctionP):
     #FORMATO DE IMPRESION DEPENDIENDO LA CONSULTA
     print("-"*60)
-    if(dineroP== "dinero"):
+    if(dineroP== "dineroTotal"):
         print("|{:^58}|".format("DINERO TOTAL DE "+nombreJugadorP))
     elif(dineroP == "dineroBanco"):
         
@@ -95,15 +100,18 @@ def menuJugador(conecctionP):
         elif(opcion == 2):
             nombre = input("Ingrese el nombre del jugador: ").capitalize()
             print()
-            consultarDineroJugador(nombre,"dineroBanco",conecctionP)
+            query.jugador_consultaDinero(conecctionP, nombre, "dineroBanco")
+            #consultarDineroJugador(nombre,"dineroBanco",conecctionP)
         elif(opcion == 3):
             nombre = input("Ingrese el nombre del jugador: ").capitalize()
             print()
-            consultarDineroJugador(nombre,"dineroComercio",conecctionP)
+            query.jugador_consultaDinero(conecctionP, nombre, "dineroComercios")
+            #consultarDineroJugador(nombre,"dineroComercios",conecctionP)
         elif(opcion == 4):
             nombre = input("Ingrese el nombre del jugador: ").capitalize()
             print()
-            consultarDineroJugador(nombre,"dinero",conecctionP)
+            query.jugador_consultaDinero(conecctionP, nombre, "dineroTotal")
+            #consultarDineroJugador(nombre,"dineroTotal",conecctionP)
         else:
             menu()
         respuesta = input("Desea realizar otra consulta? Si/No: ").lower()
