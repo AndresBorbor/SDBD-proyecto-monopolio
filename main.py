@@ -38,52 +38,6 @@ def menu():
 
 
 
-
-
-#FUNCION DE CONSULTA
-def consultarDineroJugador(nombreJugadorP,dineroP, conecctionP):
-    #FORMATO DE IMPRESION DEPENDIENDO LA CONSULTA
-    print("-"*60)
-    if(dineroP== "dineroTotal"):
-        print("|{:^58}|".format("DINERO TOTAL DE "+nombreJugadorP))
-    elif(dineroP == "dineroBanco"):
-        
-        print("|{:^58}|".format("DINERO RECIBIDO POR EL BANCO DE "+nombreJugadorP))
-    else:
-        print("|{:^58}|".format("DINERO OBTENIDO DE COMERCIOS DE "+nombreJugadorP))
-    print("-"*60)
-    print("|{:<19}|{:<19}|{:<18}|".format("NOMBRE","FICHA","DINERO"))
-    print("-"*60)
-    resultado = seleccionDineroJugador(nombreJugadorP, dineroP,conecctionP)
-    imprimirDinero(resultado, dineroP)
-
-#METODO QUE IMPRIME LA CONSULTA DEL DINERO DEPENDIENDO DE SI HAY O NO MÁS DE UN JUGADOR CON EL MISMO NOMBRE
-def imprimirDinero(resultsP,dineroP):
-    if len(resultsP) == 1:
-        imprimirTipoDinero(dineroP,resultsP[0])
-    else:
-        ficha = str(input('Existen más de un jugador con el mismo nombre, por favor ingrese la ficha del jugador que quiere consultar').lower())
-        for tp in resultsP:
-            tupla = tp
-            if tupla[1].lower() == ficha:
-                imprimirTipoDinero(dineroP,tupla)
-    
-        
-#METODO PARA IMRPRIMIR SEGUN EL TIPO DE DINERO QUE QUIERA CONSULTAR DE JUGADOR
-def imprimirTipoDinero(dineroP,tuplaP):
-    print("|{:<19}|{:<19}|{:<18}|".format(tuplaP[0],tuplaP[1],tuplaP[2]))
-    print("-"*60)
-
-#FUNCION QUE GENERA EL STRING PARA LA CONSULTA Y DEVUELVE LA LISTA DE TUPLAS DE REGISTROS
-def seleccionDineroJugador(nombreJugadorP,dineroP,conecctionP):
-    if(dineroP == "dineroTotal"):
-        selec = "select nombre, ficha,"+dineroP+ " from jugador where nombre = '"+ nombreJugadorP + "'"
-    else:
-        selec = "select nombre, ficha, (dineroBanco+dineroComercios) as dinero_total"+ " from jugador where nombre = '"+ nombreJugadorP + "'"
-    
-    results = conecctionP.execute(selec).fetchmany(size=100)
-    return results
-
 def menuJugador(conecctionP):
     muletilla = True
     while(muletilla):
@@ -96,22 +50,21 @@ def menuJugador(conecctionP):
 
         opcion = int(input("Opcion elegida: "))
         if(opcion == 1):
+            nombre = input("Ingrese el nombre del jugador: ").capitalize()
             print()
+            query.jugador_consultarPropiedad(conecctionP,nombre)
         elif(opcion == 2):
             nombre = input("Ingrese el nombre del jugador: ").capitalize()
             print()
             query.jugador_consultaDinero(conecctionP, nombre, "dineroBanco")
-            #consultarDineroJugador(nombre,"dineroBanco",conecctionP)
         elif(opcion == 3):
             nombre = input("Ingrese el nombre del jugador: ").capitalize()
             print()
             query.jugador_consultaDinero(conecctionP, nombre, "dineroComercios")
-            #consultarDineroJugador(nombre,"dineroComercios",conecctionP)
         elif(opcion == 4):
             nombre = input("Ingrese el nombre del jugador: ").capitalize()
             print()
             query.jugador_consultaDinero(conecctionP, nombre, "dineroTotal")
-            #consultarDineroJugador(nombre,"dineroTotal",conecctionP)
         else:
             menu()
         respuesta = input("Desea realizar otra consulta? Si/No: ").lower()

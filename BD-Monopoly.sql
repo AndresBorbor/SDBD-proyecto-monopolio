@@ -522,3 +522,14 @@ insert into Lanzamiento(dado1, dado2, jugador) values(
     3,
     1
 );
+
+use bd_monopoly;
+
+select * from compra;
+select * from venta;
+
+select c.id_compra, c.jugador,c.terreno 
+from Compra c where terreno 
+not in (select v.terreno 
+from Venta v where v.jugador = c.jugador);
+
