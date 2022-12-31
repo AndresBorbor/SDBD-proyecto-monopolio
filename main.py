@@ -83,30 +83,6 @@ def menuTarjeta(conecctionP):
         print()
     elif(opcion==3):
         menu()
-#FUNCION PARA SELECCIONAR TERRENO
-def seleccionTerrenosDisponibles(conecctionP):
-    selec = "select distinct(id_terreno),color,tipo,alquiler from Terreno,Venta where Venta.terreno = Terreno.id_terreno and tipo = 'propiedad' order by id_terreno"
-    results = conecctionP.execute(selec).fetchmany(size=100)
-    return results
-#FUNCION PARA IMPRIMIR TERRENOS
-def imprimirTerrenos(resultsP):
-    print("-"*49)
-    print("|{:^47}|".format("TERRENOS DISPONIBLES PARA COMPRA"))
-    print("-"*49)
-    print("|{:<11}|{:<11}|{:<11}|{:<11}|".format("id_terreno", "color" , "tipo", "alquiler"))
-    print("-"*49)
-    for tupla in resultsP:
-        id_terreno = tupla[0]
-        color_terreno = tupla[1]
-        tipo_terreno = tupla[2]
-        alquiler_terreno = tupla[3]
-        print("|{:<11}|{:<11}|{:<11}|{:<11}|".format(id_terreno,color_terreno,tipo_terreno,alquiler_terreno))
-        print("-"*49)
-    print()
-#CONSULTA DE TERRENOS
-def consultarTerrenosDisponibles(conecctionP):
-    resultado = seleccionTerrenosDisponibles(conecctionP)
-    imprimirTerrenos(resultado)
 
 def menuBanco(conecctionP):
     print()
@@ -119,7 +95,7 @@ def menuTerreno(conecctionP):
 
     print()
     if(opcion == 1):
-        consultarTerrenosDisponibles(conecctionP)
+        query.terreno_consultarDisponibles(conecctionP)
     elif(opcion == 2):
         print()
     elif(opcion==3):

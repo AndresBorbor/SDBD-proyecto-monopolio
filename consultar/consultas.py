@@ -93,6 +93,42 @@ def jugador_obtenerJugadorPropiedad(conecctionP, nombreP):
     return result[0]
 
 def jugador_imprimirPropiedades(tuplaP):
-
     print("|{:<13}|{:<14}|{:<14}|{:<14}|".format(tuplaP[0],tuplaP[1],tuplaP[2],tuplaP[3]))
     print("-"*60)
+
+#CONSULTAS TERRENOS
+
+#consultar terrenos disponibles
+def terreno_seleccionDisponibles(conecctionP):
+    selec = "select distinct(id_terreno),color,tipo,alquiler from Terreno, Venta where Venta.terreno = Terreno.id_terreno and tipo = 'propiedad' order by id_terreno"
+    results = conecctionP.execute(selec).fetchmany(size = 100)
+    
+    return results
+
+def terreno_imprimirTerrenos(resultsP):
+    print("-"*49)
+    print("|{:^47}|".format("TERRENOS DISPONIBLES PARA COMPRA"))
+    print("-"*49)
+    print("|{:<11}|{:<11}|{:<11}|{:<11}|".format("id_terreno", "color" , "tipo", "alquiler"))
+    print("-"*49)
+    for tupla in resultsP:
+        id_terreno = tupla[0]
+        color_terreno = tupla[1]
+        tipo_terreno = tupla[2]
+        alquiler_terreno = tupla[3]
+        print("|{:<11}|{:<11}|{:<11}|{:<11}|".format(id_terreno,color_terreno,tipo_terreno,alquiler_terreno))
+        print("-"*49)
+    print()
+
+def terreno_consultarDisponibles(conecctionP):
+    resultado = terreno_seleccionDisponibles(conecctionP)
+    
+    terreno_imprimirTerrenos(resultado)
+#consultar terrenos no disponibles
+
+
+#CONSULTAS TARJETAS
+#consultas tarjetas que han sido tomadas
+#consultas tarjetas que no han sido tomadas
+
+#CONSULTAS BANCO
