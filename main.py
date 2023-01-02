@@ -47,7 +47,7 @@ def menuJugador(conecctionP):
         elif(opcion==2):
             menuJugadorConsultar(conecctionP)
         elif(opcion==3):
-            print("Implementar menu editar")
+            menuActualizacionesJugador(conecctionP)
         elif(opcion==4):
             print("Implementar menu eliminar")
         else:
@@ -79,14 +79,11 @@ def menuTarjeta(conecctionP):
         elif(opcion == 2):
             menuTarjetaConsultar(conecctionP)
         elif(opcion == 3):
-            print("Implementar menu editar")
+            print("falta")
         elif(opcion == 4):
             print("Implementar menu eliminar")
         else:
             banderilla = False
-
-def menuBanco(conecctionP):
-    print()
 
 
 def menuJugadorInsertar(conecctionP):
@@ -126,6 +123,31 @@ def menuJugadorConsultar(conecctionP):
             respuesta = "no"
         respuesta = input("Desea realizar otra consulta? Si/No: ").lower()
 
+
+def menuActualizacionesJugador(conectionP):
+    print("--------MENU EDICIONES----------")
+    print("elija una opcion")
+    print("1 editar nombre")
+    print("2 editar dinero de comercios")
+
+    opcion = int(input("Opcion elegida"))
+
+    if opcion == 1:
+        id = int(input("ingrese el id del jugador"))
+        nombre = input("ingrese el nombre a editar")
+        edit.nombreJugador(conectionP,nombre, id)   
+    elif opcion ==2: 
+        id = int(input("ingrese el id del jugador"))
+        dinero = int(input("Ingrese el valor del dinero"))
+        edit.dineroComercios(conectionP,dinero, id)
+
+
+
+def menuEliminarJugador(conectionP):
+    print("--------MENU Eliminaciones----------")
+    print("elija una opcion")
+    print("1 editar nombre")
+    print("2 editar dinero de comercios")
 
 def menuTerrenoInsertar(conecctionP):
     respuesta = "si"
