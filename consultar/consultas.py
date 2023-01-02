@@ -1,11 +1,20 @@
 #CONSULTAS JUGADORES
-
+def jugador_obtenerCodigo(conecctionP,nombreP):
+    selec = "select id_jugador,ficha,nombre from jugador where nombre = '"+ nombreP +"'"
+    results = conecctionP.execute(selec).fetchmany(size=100)
+    if(len(results)>1):
+        ficha = input("Existen mas de un jugador con ese nombre, ingrese la ficha: ").lower()
+        for tupla in results:
+            if tupla[1].lower() == ficha:
+                return tupla[0]
+    return results[0][0]
 #consultas dinero
 '''
 la validacion de cuando son mas de un resultado y debe pedirse 
 la ficha puede hacerse en una funcion, para reutilizarlo en otras tablas
 '''
 def jugador_consultaDinero(conecctionP,nombreP,dineroP):
+    tupla = jugador_selectDinero(conecctionP,nombreP,dineroP)
     #FORMATO DE IMPRESION DEPENDIENDO LA CONSULTA
     print("-"*60)
     if(dineroP== "dineroTotal"):
@@ -19,23 +28,18 @@ def jugador_consultaDinero(conecctionP,nombreP,dineroP):
     print("|{:<19}|{:<19}|{:<18}|".format("NOMBRE","FICHA","DINERO"))
     print("-"*60)
 
-    tupla = jugador_selectDinero(conecctionP,nombreP,dineroP)
+    
     jugador_imprimirDinero(tupla)
 
 def jugador_selectDinero(conecctionP, nombreP,dineroP):
-
+    codigoJugador = jugador_obtenerCodigo(conecctionP, nombreP)
+    
     if(dineroP == "dineroTotal"):
-        selec = "select nombre, ficha,(dineroBanco+dineroComercios) as Dinero_Total from jugador where nombre = '"+ nombreP +"'"
-        
+        selec = "select nombre, ficha,(dineroBanco+dineroComercios) as Dinero_Total from jugador where id_jugador = '"+ str(codigoJugador) +"'" 
     else:
-        selec = "select nombre, ficha,"+dineroP+ " from jugador where nombre = '"+ nombreP + "'"
+        selec = "select nombre, ficha,"+dineroP+ " from jugador where id_jugador = '"+ str(codigoJugador) + "'"
     results = conecctionP.execute(selec).fetchmany(size = 100)
-
-    if len(results) >1:
-        ficha = str(input('Existen más de un jugador con el mismo nombre, por favor ingrese la ficha del jugador que quiere consultar').lower())
-        for tp in results:
-            if tp[1].lower() == ficha:
-                return tp
+   
     return results[0]
 
 def jugador_imprimirDinero(tuplaP):
@@ -48,12 +52,14 @@ def jugador_imprimirDinero(tuplaP):
 Revisar linea 63
 '''
 def jugador_consultarPropiedad(conecctionP, nombreP):
+    
+    propiedades = jugador_selectPropiedad(conecctionP,nombreP)
+
     print("-"*60)
     print("|{:^58}|".format("PROPIEDADES DE "+ nombreP))
     print("-"*60)
     print("|{:<13}|{:<14}|{:<14}|{:<14}|".format("ID","COLOR","TIPO","ALQUILER"))
     print("-"*60)
-    propiedades = jugador_selectPropiedad(conecctionP,nombreP)
     for tupla in propiedades:
         jugador_imprimirPropiedades(tupla)
 
@@ -84,7 +90,7 @@ def jugador_obtenerJugadorPropiedad(conecctionP, nombreP):
     result = conecctionP.execute(selec).fetchmany(size = 100)
     
     if len(result)>1:
-        fichaP = str(input('Existen más de un jugador con el mismo nombre, por favor ingrese la ficha del jugador que quiere consultar').lower())
+        fichaP = str(input('Existen más de un jugador con el mismo nombre, por favor ingrese la ficha del jugador que quiere consultar: ').lower())
         for tupla in result:
             ficha = tupla[2]
             if(ficha == fichaP):
@@ -97,7 +103,15 @@ def jugador_imprimirPropiedades(tuplaP):
     print("-"*60)
 
 #CONSULTAS TERRENOS
-
+def terreno_obtenerCodigo(conecctionP,nombreP):
+    selec = "select id_terreno,alquiler,color from terreno where color = '"+ nombreP +"'"
+    results = conecctionP.execute(selec).fetchmany(size=100)
+    if(len(results)>1):
+        color = input("Existen mas de un terreno con ese nombre, ingrese el color: ").lower()
+        for tupla in results:
+            if tupla[1] == color:
+                return tupla[0]
+    return results[0][0]
 #consultar terrenos disponibles
 def terreno_consultarDisponibles(conecctionP):
     resultado = terreno_seleccionDisponibles(conecctionP)
