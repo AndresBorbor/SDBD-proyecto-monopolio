@@ -72,15 +72,16 @@ def menuJugador(conecctionP):
             break
             
 def menuTarjeta(conecctionP):
-    print("1. accion")
+    print("1. Consultar tarjetas que han sido tomadas")
+    print("2. Consultar tarjetas aun no tomadas")
     print("3. Volver al menu principal")
-    opcion = str(input("Opcion elegida: "))
-
+    opcion = int(input("Opcion elegida: "))
     print()
+
     if(opcion == 1):
-        print()
+        query.tarjeta_consultarTomadas(conecctionP)
     elif(opcion == 2):
-        print()
+        query.tarjeta_consultarNoTomadas(conecctionP)
     elif(opcion==3):
         menu()
 
@@ -97,7 +98,7 @@ def menuTerreno(conecctionP):
     if(opcion == 1):
         query.terreno_consultarDisponibles(conecctionP)
     elif(opcion == 2):
-        print()
+        query.terreno_consultarNoDisponibles(conecctionP)
     elif(opcion==3):
         menu()
 

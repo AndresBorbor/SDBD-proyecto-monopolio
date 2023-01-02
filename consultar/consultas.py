@@ -99,15 +99,55 @@ def jugador_imprimirPropiedades(tuplaP):
 #CONSULTAS TERRENOS
 
 #consultar terrenos disponibles
-def terreno_seleccionDisponibles(conecctionP):
-    selec = "select distinct(id_terreno),color,tipo,alquiler from Terreno, Venta where Venta.terreno = Terreno.id_terreno and tipo = 'propiedad' order by id_terreno"
-    results = conecctionP.execute(selec).fetchmany(size = 100)
-    
-    return results
+def terreno_consultarDisponibles(conecctionP):
+    resultado = terreno_seleccionDisponibles(conecctionP)
+    terreno_imprimirTerrenos(resultado)
 
-def terreno_imprimirTerrenos(resultsP):
+def terreno_seleccionDisponibles(conecctionP):
+    selec_terrenosSeguros = "select * from terreno t where t.id_terreno not in(select terreno from compra join venta using(terreno))"
+    results_terrenosSeguros = conecctionP.execute(selec_terrenosSeguros).fetchmany(size = 100)
+    
+    selec_terrenosDuda = "select * from terreno t where t.id_terreno in (select terreno from Compra)"
+    results_terrenosDuda = conecctionP.execute(selec_terrenosDuda).fetchmany(size = 100)
+   
+    listaIdTerrenos = []
+    for terreno in results_terrenosSeguros:
+        listaIdTerrenos.append(terreno[0])
+    
+    listaIdTerrenosDuda = []
+    for terreno in results_terrenosDuda:
+        listaIdTerrenosDuda.append(terreno[0])
+     
+    listaIds = terreno_buscarDisponibilidad(conecctionP, listaIdTerrenos,listaIdTerrenosDuda)
+    resultadoFinal = terreno_seleccionarLista(conecctionP, listaIds)
+
+    return resultadoFinal
+
+#funciones compartidas de terrenos
+def terreno_buscarDisponibilidad(conecctionP,idTerrenosSegurosP, idTerrenosDudaP,disponibilidad=True):
+    idTerrenos = idTerrenosSegurosP.copy()
+    for id in idTerrenosDudaP:
+        if(idTerrenosDudaP not in idTerrenosSegurosP):
+            if(disponibilidad):
+                selec_ultimaCompra = "select max(turno) as ultima_compra from compra c where terreno = '"+ str(id) +"'"
+                selec_ultimaVenta = "select max(turno) as ultima_venta from venta v where terreno = '"+ str(id) +"'"
+            else:
+                selec_ultimaCompra = "select max(turno) as ultima_venta from venta v where terreno = '"+ str(id) +"'"
+                selec_ultimaVenta = "select max(turno) as ultima_compra from compra c where terreno = '"+ str(id) +"'"
+
+            tupla_ultimaCompra = conecctionP.execute(selec_ultimaCompra).fetchmany(size = 100)[0]
+            tupla_ultimaVenta = conecctionP.execute(selec_ultimaVenta).fetchmany(size = 100)[0]
+
+            turno_ultimaCompra, turno_ultimaVenta = 0,0
+            
+            if(type(tupla_ultimaCompra[0])==int): turno_ultimaCompra = tupla_ultimaCompra[0]
+            if(type(tupla_ultimaVenta[0])==int): turno_ultimaVenta = tupla_ultimaVenta[0]
+            if (turno_ultimaCompra < turno_ultimaVenta and id not in idTerrenos): idTerrenos.append(id)
+    return idTerrenos
+
+def terreno_imprimirTerrenos(resultsP,disponibilidad = ""):
     print("-"*49)
-    print("|{:^47}|".format("TERRENOS DISPONIBLES PARA COMPRA"))
+    print("|{:^47}|".format("TERRENOS "+disponibilidad+"DISPONIBLES PARA COMPRA"))
     print("-"*49)
     print("|{:<11}|{:<11}|{:<11}|{:<11}|".format("id_terreno", "color" , "tipo", "alquiler"))
     print("-"*49)
@@ -120,15 +160,74 @@ def terreno_imprimirTerrenos(resultsP):
         print("-"*49)
     print()
 
-def terreno_consultarDisponibles(conecctionP):
-    resultado = terreno_seleccionDisponibles(conecctionP)
-    
-    terreno_imprimirTerrenos(resultado)
+def terreno_seleccionarLista(conecctionP, listaIdsP):
+    result = []
+    for id in listaIdsP:
+        selec = "select id_terreno, color, tipo, alquiler from terreno where id_terreno = '"+ str(id) +"'"
+        tupla = conecctionP.execute(selec).fetchmany(size=100)[0]
+        result.append(tupla)
+    return result
+
 #consultar terrenos no disponibles
+def terreno_consultarNoDisponibles(conecctionP):
+    resultado = terreno_seleccionNoDisponibles(conecctionP)
+    terreno_imprimirTerrenos(resultado, "NO")
+
+def terreno_seleccionNoDisponibles(conecctionP):
+    selec_terrenosSeguros = "select * from terreno t where t.id_terreno in (select terreno from Compra join Venta using(terreno))"
+    results_terrenosSeguros = conecctionP.execute(selec_terrenosSeguros).fetchmany(size = 100)
+    selec_terrenosDuda = "select * from terreno t where t.id_terreno in (select terreno from Venta)"
+    results_terrenosDuda = conecctionP.execute(selec_terrenosDuda).fetchmany(size = 100)
+   
+    listaIdTerrenos = []
+    for terreno in results_terrenosSeguros:
+        listaIdTerrenos.append(terreno[0])
+    
+    listaIdTerrenosDuda = []
+    for terreno in results_terrenosDuda:
+        listaIdTerrenosDuda.append(terreno[0])
+
+    listaIds = terreno_buscarDisponibilidad(conecctionP, listaIdTerrenos, listaIdTerrenosDuda, False)
+    resultadoFinal = terreno_seleccionarLista(conecctionP, listaIds)
+
+    return resultadoFinal
 
 
 #CONSULTAS TARJETAS
 #consultas tarjetas que han sido tomadas
+def tarjeta_consultarTomadas(conecctionP):
+    results = tarjeta_seleccionTomadas(conecctionP)
+    tarjeta_imprimirTarjetas(results)
+
+def tarjeta_seleccionTomadas(conecctionP):
+    selec = "select * from Tarjeta where id_tarjeta in (select tarjeta from tarjeta_jugador)"
+    results = conecctionP.execute(selec).fetchmany(size = 100)
+    return results
+
+def tarjeta_imprimirTarjetas(resultsP, estado="TOMADAS"):
+    print("-"*74)
+    print("|{:^72}|".format("TARJETAS "+estado))
+    print("-"*74)
+    print("|{:<15}|{:<15}|{:<40s}|".format("id_tarjeta", "tipo_tarjeta", "descripcion"))
+    print("-"*74)
+    for tupla in resultsP:
+        id_tarjeta = tupla[0]
+        tipo_tarjeta = tupla[1]
+        descripcion = tupla[2]
+        print("|{:<15}|{:<15}|{:<40}|".format(id_tarjeta,tipo_tarjeta,descripcion))
+        print("-"*74)
+    print()
+
 #consultas tarjetas que no han sido tomadas
+def tarjeta_consultarNoTomadas(conecctionP):
+    results = tarjeta_seleccionNoTomadas(conecctionP)
+    tarjeta_imprimirTarjetas(results, "NO TOMADAS")
+
+def tarjeta_seleccionNoTomadas(conecctionP):
+    selec = "select * from Tarjeta where id_tarjeta not in (select tarjeta from tarjeta_jugador)"
+    results = conecctionP.execute(selec).fetchmany(size = 100)
+    return results
+
+
 
 #CONSULTAS BANCO

@@ -388,6 +388,13 @@ insert into Venta(jugador,terreno,banco,turno) values(
     2
 );
 
+insert into Venta(jugador,terreno,banco,turno) values(
+	2,
+    4,
+    1,
+    3
+);
+
 -- insercion datos Compra 
 -- 1
 insert into Compra(jugador,terreno,banco,turno) values(
@@ -531,5 +538,47 @@ select * from venta;
 select c.id_compra, c.jugador,c.terreno 
 from Compra c where terreno 
 not in (select v.terreno 
-from Venta v where v.jugador = c.jugador);
+from Venta v where v.jugador = c.jugador) and c.jugador = 6;
+
+select * from Venta;
+select * from Compra;
+
+-- seleccion terrenos que no se han comprado
+select * from terreno t
+where t.id_terreno not in (select terreno from Compra);
+-- validar si esa lista es vacia, entonces hacer lo siguiente
+
+select * from terreno t
+where t.id_terreno in (select c.terreno 
+from Compra c 
+join Venta v 
+using(terreno,jugador) where c.turno < v.turno);
+
+insert into Compra(jugador,terreno,banco,turno) values(
+	3,
+    4,
+    1,
+    4
+);
+
+insert into Venta(jugador,terreno,banco,turno) values(
+	5,
+    4,
+    1,
+    8
+);
+insert into Compra(jugador,terreno,banco,turno) values(
+	5,
+    4,
+    1,
+	7
+);
+
+select * from venta;
+
+select * from Compra c join Venta v using(jugador,terreno);
+
+
+select max(turno) as ultima_compra from compra c where terreno = 4;
+select max(turno) as ultima_venta from venta v where terreno = 4;
 
