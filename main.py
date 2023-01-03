@@ -85,7 +85,6 @@ def menuTarjeta(conecctionP):
         else:
             banderilla = False
 
-
 def menuJugadorInsertar(conecctionP):
     respuesta = "si"
     while(respuesta != "no"):
@@ -123,12 +122,12 @@ def menuJugadorConsultar(conecctionP):
             respuesta = "no"
         respuesta = input("Desea realizar otra consulta? Si/No: ").lower()
 
-
 def menuActualizacionesJugador(conectionP):
     print("--------MENU EDICIONES----------")
     print("elija una opcion")
     print("1 editar nombre")
     print("2 editar dinero de comercios")
+    print("3.editar dinero total")
 
     opcion = int(input("Opcion elegida"))
 
@@ -140,14 +139,15 @@ def menuActualizacionesJugador(conectionP):
         id = int(input("ingrese el id del jugador"))
         dinero = int(input("Ingrese el valor del dinero"))
         edit.dineroComercios(conectionP,dinero, id)
-
-
+    elif opcion == 3:
+        id = int(input("ingrese el id del jugador"))
+        dinero = int(input("Ingrese el valor del dinero"))
+        edit.dineroTotal(conectionP,dinero, id)
 
 def menuEliminarJugador(conectionP):
     print("--------MENU Eliminaciones----------")
-    print("elija una opcion")
-    print("1 editar nombre")
-    print("2 editar dinero de comercios")
+    jugador = input("ingrese el nombre del jugador a eliminar")
+    delete.eliminarJugador(conectionP,jugador)
 
 def menuTerrenoInsertar(conecctionP):
     respuesta = "si"
@@ -169,7 +169,6 @@ def menuTerrenoConsultar(conecctionP):
         elif(opcion==3):
             respuesta = "no"
         respuesta = input("Desea realizar otra consulta? Si/No: ").lower()
-
 
 def menuTarjetaInsertar(conecctionP):
     respuesta = "si"
