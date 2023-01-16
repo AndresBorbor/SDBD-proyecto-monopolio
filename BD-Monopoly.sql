@@ -607,3 +607,14 @@ create procedure sp_consultarPropiedadJugador(in nombreP int)
 		select * from terreno t where id_terreno in (select terreno from compra where jugador = nombreP);
     end
 / delimiter ;
+
+delimiter /
+	create trigger borrarTerreno 
+    before delete on terreno
+    for each row 
+		begin
+			delete from venta where terreno = old.id_terreno;
+            delete from compra where terreno = old.id_terreno;
+        end; 
+	
+/delimiter ;
