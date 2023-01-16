@@ -6,7 +6,7 @@ from eliminar import eliminaciones as delete
 from consultar import consultas as query
 
 def menu():
-    engine = create_engine('mysql+pymysql://root:1401@127.0.0.1:3306/BD_Monopoly')
+    engine = create_engine('mysql+pymysql://root:1234@127.0.0.1:3306/BD_Monopoly')
     conecction = engine.connect()
     banderilla = True
     while(banderilla):
@@ -108,9 +108,12 @@ def menuJugadorConsultar(conecctionP):
 
         opcion = int(input("Opcion elegida: "))
         if(opcion == 1):
-            nombre = input("Ingrese el nombre del jugador: ").capitalize()
-            print()
-            query.jugador_consultarPropiedad(conecctionP,nombre)
+            #nombre = input("Ingrese el nombre del jugador: ").capitalize()
+            #print()
+            #query.jugador_consultarPropiedad(conecctionP,nombre)
+            result = conecctionP.execute(query.jugador_spConsultarPropiedades(conecctionP,"karen"))
+            for row in result:
+                print(row)
         elif(opcion == 2):
             nombre = input("Ingrese el nombre del jugador: ").capitalize()
             print()

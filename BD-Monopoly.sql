@@ -562,36 +562,48 @@ insert into Compra(jugador,terreno,banco,turno) values(
 );
 
 insert into Venta(jugador,terreno,banco,turno) values(
-	5,
+	6,
     4,
     1,
-    8
+    9
 );
 insert into Compra(jugador,terreno,banco,turno) values(
 	5,
     4,
     1,
-	7
+	9
 );
 
-select * from venta;
-
+select * from compra;
+select * from terreno;
 select * from Compra c join Venta v using(jugador,terreno);
 
 
 select max(turno) as ultima_compra from compra c where terreno = 4;
 select max(turno) as ultima_venta from venta v where terreno = 4;
 
+select * from terreno t where t.id_terreno not in (select terreno from venta);
+select * from terreno t where t.id_terreno not in (select terreno from venta) and t.id_terreno not in (select terreno from compra);
+
+use bd_monopoly;
+describe jugador;
 delimiter /
-create trigger eliminarJugador
-	before delete on jugador
-    for each row 
-    begin
-		delete from compra where jugador = old.id_jugador;
-		delete from Lanzamiento where jugador = old.id_jugador;
-        delete from tarjeta_jugador where jugador = old.id_jugador;
-        delete from venta where jugador = old.id_jugador;
-        
-    end;
-    
-/delimiter ;
+
+create procedure sp_ingresarJugador(in NombreP varchar(50), dineroBanco int, dineroComercios int, ficha varchar(25))
+	begin
+		insert into jugador (Nombre,dineroBanco, dineroComercios,ficha) values(
+			NombreP,
+            dineroBanco,
+            dineroComercios,
+            ficha
+        );
+    end
+/ delimiter ;
+
+delimiter /
+
+create procedure sp_consultarPropiedadJugador(in nombreP int)
+	begin
+		select * from terreno t where id_terreno in (select terreno from compra where jugador = nombreP);
+    end
+/ delimiter ;

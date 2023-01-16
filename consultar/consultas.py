@@ -1,4 +1,11 @@
 #CONSULTAS JUGADORES
+def jugador_spConsultarPropiedades(conecctionP, nombreP):
+    codigo = jugador_obtenerCodigo(conecctionP,nombreP)
+    return "call sp_consultarPropiedadJugador('"+ str(codigo) +"')"
+
+def jugador_spConsultar():
+    return "call sp_consultarJugadores()"
+
 def jugador_obtenerCodigo(conecctionP,nombreP):
     selec = "select id_jugador,ficha,nombre from jugador where nombre = '"+ nombreP +"'"
     results = conecctionP.execute(selec).fetchmany(size=100)

@@ -1,5 +1,4 @@
 from consultar import consultas as query
-
 def jugador_solicitarDatos():
     nombre = input("Nombre del jugador: ")
     dineroBanco = input("Dinero recibido del banco: ")
