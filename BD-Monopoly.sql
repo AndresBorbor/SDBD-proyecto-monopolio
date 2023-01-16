@@ -582,3 +582,16 @@ select * from Compra c join Venta v using(jugador,terreno);
 select max(turno) as ultima_compra from compra c where terreno = 4;
 select max(turno) as ultima_venta from venta v where terreno = 4;
 
+delimiter /
+create trigger eliminarJugador
+	before delete on jugador
+    for each row 
+    begin
+		delete from compra where jugador = old.id_jugador;
+		delete from Lanzamiento where jugador = old.id_jugador;
+        delete from tarjeta_jugador where jugador = old.id_jugador;
+        delete from venta where jugador = old.id_jugador;
+        
+    end;
+    
+/delimiter ;

@@ -6,7 +6,7 @@ from eliminar import eliminaciones as delete
 from consultar import consultas as query
 
 def menu():
-    engine = create_engine('mysql+pymysql://root:1234@127.0.0.1:3306/BD_Monopoly')
+    engine = create_engine('mysql+pymysql://root:1401@127.0.0.1:3306/BD_Monopoly')
     conecction = engine.connect()
     banderilla = True
     while(banderilla):
@@ -49,7 +49,7 @@ def menuJugador(conecctionP):
         elif(opcion==3):
             menuActualizacionesJugador(conecctionP)
         elif(opcion==4):
-            print("Implementar menu eliminar")
+            menuEliminarJugador(conecctionP)
         else:
             banderilla = False
     
@@ -63,7 +63,7 @@ def menuTerreno(conecctionP):
         elif(opcion==2):
             menuTerrenoConsultar(conecctionP)
         elif(opcion==3):
-            print("Implementar menu editar")
+            menutTerrenoEditar(conecctionP)
         elif(opcion==4):
             print("Implementar menu eliminar")
         else:
@@ -81,10 +81,15 @@ def menuTarjeta(conecctionP):
         elif(opcion == 3):
             print("falta")
         elif(opcion == 4):
-            print("Implementar menu eliminar")
+            print("hace falta")
         else:
             banderilla = False
 
+def menuBanco(conecctionP):
+    banderilla = True
+    while(banderilla):
+        print("ADMINISTRAR BANCO")
+        
 def menuJugadorInsertar(conecctionP):
     respuesta = "si"
     while(respuesta != "no"):
@@ -127,26 +132,43 @@ def menuActualizacionesJugador(conectionP):
     print("elija una opcion")
     print("1 editar nombre")
     print("2 editar dinero de comercios")
-    print("3.editar dinero total")
+    print("3 editar dinero del banco")
+    print("4 editar dinero total")
 
-    opcion = int(input("Opcion elegida"))
+    opcion = int(input("Opcion elegida "))
 
     if opcion == 1:
-        id = int(input("ingrese el id del jugador"))
-        nombre = input("ingrese el nombre a editar")
+        query.consultar_Jugadores(conectionP)
+        print()
+        id = int(input("ingrese el id del jugador que desea editar  "))
+        nombre = input("ingrese el nombre a editar ")
         edit.nombreJugador(conectionP,nombre, id)   
     elif opcion ==2: 
-        id = int(input("ingrese el id del jugador"))
-        dinero = int(input("Ingrese el valor del dinero"))
+        query.consultar_Jugadores(conectionP)
+        print()
+        id = int(input("ingrese el id del jugador que desea actualizar"))
+        dinero = int(input("Ingrese el valor del dinero "))
         edit.dineroComercios(conectionP,dinero, id)
     elif opcion == 3:
-        id = int(input("ingrese el id del jugador"))
-        dinero = int(input("Ingrese el valor del dinero"))
+        query.consultar_Jugadores(conectionP)
+        print()
+        id = int(input("ingrese el id del jugador que desea actualizar "))
+        dinero = int(input("Ingrese el valor del dinero "))
+        edit.dineroBnaco(conectionP,dinero, id)
+    elif opcion == 4:
+        query.consultar_Jugadores(conectionP)
+        print()
+        id = int(input("ingrese el id del jugador que desea actualizar "))
+        dinero = int(input("Ingrese el valor del dinero "))
         edit.dineroTotal(conectionP,dinero, id)
+    
 
 def menuEliminarJugador(conectionP):
     print("--------MENU Eliminaciones----------")
-    jugador = input("ingrese el nombre del jugador a eliminar")
+    print()
+    query.consultar_Jugadores(conectionP)
+    print()
+    jugador = input("ingrese el nombre del jugador a eliminar ")
     delete.eliminarJugador(conectionP,jugador)
 
 def menuTerrenoInsertar(conecctionP):
@@ -169,6 +191,25 @@ def menuTerrenoConsultar(conecctionP):
         elif(opcion==3):
             respuesta = "no"
         respuesta = input("Desea realizar otra consulta? Si/No: ").lower()
+
+def menutTerrenoEditar(conecctionP):
+    print("------------- MENU EDITAR TERRENOS -----------------")
+    print("1. editar numero de casas")
+    print("2. editar numero de hoteles")
+    print("3. editar costo de alquiler")
+    opcion = int(input("Opcion elegida: "))
+
+    if opcion == 1:
+        query.consultar_tereno(conecctionP)
+        print()
+        id = int(input("ingrese el ide del terreno a editar: "))
+        casas = int(input("ingrese la cantidad de casas a agregar: "))
+        edit.agregar_casas(conecctionP,casas,id)
+    elif opcion == 2:
+        query.consultar_tereno(conecctionP)
+        print()
+        
+
 
 def menuTarjetaInsertar(conecctionP):
     respuesta = "si"

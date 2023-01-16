@@ -242,6 +242,36 @@ def tarjeta_seleccionNoTomadas(conecctionP):
     results = conecctionP.execute(selec).fetchmany(size = 100)
     return results
 
-
-
 #CONSULTAS BANCO
+
+#mostrar todo
+def consultar_Jugadores(conecctionP):
+    selec = "select * from jugador"
+    tupla = conecctionP.execute(selec)
+    print("|{:<15}|{:<15}|{:<15}|{:15}|{:40}|".format("id_jugador", "nombre", "dineroBanco","dineroComercios","ficha"))
+    print("-"*74)
+    for datos in tupla:
+        id = datos[0]
+        nombre = datos[1]
+        dinerob = datos[2]
+        dineroC = datos[3]
+        ficha = datos[4]
+        print("|{:<15}|{:<15}|{:<15}|{:<15}|{:25}|".format(id,nombre,dinerob,dineroC,ficha))
+        print("-"*74)
+    print()
+
+def consultar_tereno(conecctionP):
+    selec = "select * from terreno"
+    tupla = conecctionP.execute(selec)
+    print("|{:<15}|{:<15}|{:<15}|{:15}|{:<15}|{:15}|".format("id_terreno", "color", "tipo","Numero de casas","Numero de hoteles", "Precio alquiler"))
+    print("-"*74)
+    for datos in tupla:
+        id = datos[0]
+        color = datos[1]
+        tipo = datos[2]
+        numCasa = datos[3]
+        NumHotel = datos[4]
+        Precio = datos[5]
+        print("|{:<15}|{:<15}|{:<15}|{:<15}|{:<15}{:<15}|".format(id,color,tipo,numCasa,NumHotel,Precio))
+        print("-"*90)
+    print()
