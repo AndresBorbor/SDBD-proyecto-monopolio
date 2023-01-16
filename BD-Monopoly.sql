@@ -628,3 +628,18 @@ delimiter /
     end;
     
 /delimiter ;
+
+delimiter /
+	create trigger casas_hotel
+    before update on terreno
+    for each row 
+    begin
+		if new.casas <= 4 then 
+			set new.hoteles = 1;
+            set new.casas =0;
+            set new.alquiler = 400 + old.alquiler;
+        end if;
+    end;
+
+/delimiter ;
+
