@@ -618,3 +618,13 @@ delimiter /
         end; 
 	
 /delimiter ;
+
+delimiter /
+	create trigger alquilerUp
+    before update on terreno
+    for each row 
+    begin
+		set new.alquiler = new.casas*20 + old.alquiler; 
+    end;
+    
+/delimiter ;
