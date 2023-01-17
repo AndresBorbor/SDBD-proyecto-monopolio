@@ -61,3 +61,15 @@ def compra_insertar(conecctionP, id_banco=1):
     print()
     print("Se ha registrado con éxito la compra")
     print()
+def lanzamiento_pedirDatos(conecctionP):
+    dado1 = input("dado1: ")
+    dado2 = input("dado2: ")
+    jugador = input("jugador: ")
+
+    lanzamiento_insertarLanzamiento(conecctionP, dado1,dado2,jugador)
+    
+def lanzamiento_insertarLanzamiento(conecctionP,dado1P,dado2P,jugadorP):
+    inser = "insert into Lanzamiento (dado1,dado2,jugador) values ('"+ str(dado1P) +"','"+ str(dado2P) +"','"+ jugadorP +"')"
+    conecctionP.execute(inser)
+    print("Se ha registrado con exito el lanzamiento")
+    
