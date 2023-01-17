@@ -17,7 +17,7 @@ def menu():
         print("3. Administrar Tarjeta")
         print("4. Administrar Banco")
         print("5. Ingresar el lanzamiento: ")
-        print("5. Salir\n")
+        print("6. Salir\n")
         try:
             opcion = int(input("Opción elegida: "))
         
@@ -69,7 +69,7 @@ def menuTerreno(conecctionP):
         elif(opcion==3):
             menutTerrenoEditar(conecctionP)
         elif(opcion==4):
-            print("Implementar menu eliminar")
+            menuTerrenoEliminar(conecctionP)
         else:
             banderilla = False
 
@@ -89,9 +89,9 @@ def menuTarjeta(conecctionP):
         elif(opcion == 2):
             menuTarjetaConsultar(conecctionP)
         elif(opcion == 3):
-            print("falta")
+            menuEditarTarjeta(conecctionP)
         elif(opcion == 4):
-            print("hace falta")
+            menuEliminarTarjeta(conecctionP)
         else:
             banderilla = False
             
@@ -109,9 +109,12 @@ def menuEditarTarjeta(conecctionP):
     edit.editarTarjeta(conecctionP,desc,id)
 
 def menuBanco(conecctionP):
-    banderilla = True
-    while(banderilla):
-        print("ADMINISTRAR BANCO")
+    print("---------MENU BANCO ---------------")
+    print("En esta opcion solo se podra editar el nombre de la transaccion")
+    desc = input("ingrese el nombre de la transaccion: ")
+    id = int(input("ingrese el id del banco: "))
+    
+    edit.editarBanco(conecctionP,desc,id)
         
 def menuJugadorInsertar(conecctionP):
     respuesta = "si"
@@ -131,9 +134,6 @@ def menuJugadorConsultar(conecctionP):
 
         opcion = int(input("Opcion elegida: "))
         if(opcion == 1):
-            #nombre = input("Ingrese el nombre del jugador: ").capitalize()
-            #print()
-            #query.jugador_consultarPropiedad(conecctionP,nombre)
             result = conecctionP.execute(query.jugador_spConsultarPropiedades(conecctionP,"karen"))
             for row in result:
                 print(row)
@@ -228,7 +228,7 @@ def menutTerrenoEditar(conecctionP):
     if opcion == 1:
         query.consultar_tereno(conecctionP)
         print()
-        id = int(input("ingrese el ide del terreno a editar: "))
+        id = int(input("ingrese el id del terreno a editar: "))
         casas = int(input("ingrese la cantidad de casas a agregar: "))
         edit.agregar_casas(conecctionP,casas,id)
     elif opcion == 2:
