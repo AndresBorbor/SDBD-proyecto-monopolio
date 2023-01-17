@@ -29,3 +29,16 @@ def agregar_casas(conecctionP, casas,id):
     conecctionP.execute(edit)
     print()
     print("se ejecuto correctamente")
+    
+   def editarBanco(conecctionP,desc,id):
+    edit = "update banco set nombre = '" +str(desc)+ "' where id_banco = " +str(id)+ ""
+    conecctionP.execute(edit)
+    print()
+    print("se ejecuto correctamente") 
+    
+    
+def editarTarjeta(conecctionP,desc, id):
+    edit = "call sp_editarTarjeta('"+ str(id) +"','"+ str(desc) +"',@mensajeSalida)"
+    conecctionP.execute(edit)
+    mensaje = list(conecctionP.execute('select @mensajeSalida'))
+    print(mensaje[0][0])
