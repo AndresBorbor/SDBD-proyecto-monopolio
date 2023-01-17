@@ -16,6 +16,7 @@ def menu():
         print("2. Administrar Terreno")
         print("3. Administrar Tarjeta")
         print("4. Administrar Banco")
+        print("5. Ingresar el lanzamiento: ")
         print("5. Salir\n")
         try:
             opcion = int(input("Opción elegida: "))
@@ -29,12 +30,15 @@ def menu():
             elif(opcion == 4):
                 menuBanco(conecction)
             elif(opcion == 5):
+                query.consultar_Jugadores(conecction)
+                insert.lanzamiento_pedirDatos(conecction)
+            elif(opcion == 6):
                 print("Hasta luego!")
                 conecction.close()
                 banderilla = False
-        except:
-            print("Ingrese correctamente el dato requerido")
-            print()
+        except Exception as ex:
+           
+            print(ex)
 
 
 def menuJugador(conecctionP):
@@ -69,6 +73,12 @@ def menuTerreno(conecctionP):
         else:
             banderilla = False
 
+def menuTerrenoEliminar(conecctionP):
+    query.consultar_tereno(conecctionP)
+    id = int(input("ingrese el id del terreno: "))
+    delete.eliminarTerreno(conecctionP,id)
+    
+    
 def menuTarjeta(conecctionP):
     banderilla = True
     while(banderilla):
@@ -84,6 +94,19 @@ def menuTarjeta(conecctionP):
             print("hace falta")
         else:
             banderilla = False
+            
+def menuEliminarTarjeta(conecctionP):
+    print("---------MENU ELIMINAR--------------")
+    cod = int(input("ingrese el id de la tarjeta a eliminar: "))
+    delete.eliminarTarjeta(conecctionP,cod)
+    
+def menuEditarTarjeta(conecctionP):
+    print("----------MENU EDITAR--------------")
+    print("Edite la descripcion de la tarjeta")
+    desc = input("ingrese la descripcion a editar: ")
+    id = int(input("ingrese el id de la tarjeta: "))
+    
+    edit.editarTarjeta(conecctionP,desc,id)
 
 def menuBanco(conecctionP):
     banderilla = True
