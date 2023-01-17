@@ -656,3 +656,84 @@ create trigger eliminarJugador
     end;
 /delimiter ;
 
+
+
+-- PROCEDURE actualizar terreno
+delimiter /
+create procedure sp_actualizarTerreno(in id_terrenoP int, casasP int)
+	begin
+		update terreno set casas = casasP where id_terreno = id_terrenoP;
+	end
+/ delimiter ;
+
+-- PROCEDURES eliminar jugador y terreno por nombre
+
+delimiter /
+create procedure sp_eliminarJugador(in nombreP varchar(25),fichaP varchar(25))
+	begin
+		delete from jugador where nombre = nombreP and ficha = fichaP;
+	end
+/ delimiter ;
+describe terreno;
+
+delimiter /
+create procedure sp_eliminarTerreno(in nombreTerrenoP varchar(25))
+	begin
+		delete from terreno where nombre = nombreTerrenoP;
+	end
+
+/ delimiter ;
+
+
+
+-- PROCEDURE modificar nombre jugador
+delimiter /
+create procedure sp_actualizarJugador(in id_jugadorP int, nombreP varchar(50))
+	begin
+		update jugador set Nombre = nombreP where id_jugador = id_jugadorP;
+	end
+/ delimiter 
+
+-- procedure insertarTerreno
+delimiter /
+create procedure sp_insertarTerreno(in colorP char(10), tipoP enum('negocio','propiedad'), casasP int, hotelesP int, alquilerP int)
+	begin
+		insert into terreno(color,tipo,casas,hoteles,alquiler) values(
+			colorP,
+			tipoP,
+			casasP,
+			hotelesP,
+			alquilerP
+		);
+	end
+/ delimiter ;
+
+
+
+-- procedure insertarCompra
+delimiter /
+create procedure sp_insertarCompra(in jugadorP int, terrenoP int, bancoP int, turnoP int)
+	begin
+		insert into compra(jugador,terreno,banco,turno) values(
+			jugadorP,
+			terrenoP,
+			bancoP,
+			turnoP
+
+		);
+	end
+/ delimiter ;
+
+delimiter /
+-- Procedure insertar jugador
+
+create procedure sp_ingresarJugador(in NombreP varchar(50), dineroBanco int, dineroComercios int, ficha varchar(25))
+	begin
+		insert into jugador (Nombre,dineroBanco, dineroComercios,ficha) values(
+			NombreP,
+			dineroBanco,
+			dineroComercios,
+			ficha
+		);
+	end
+/ delimiter ;
