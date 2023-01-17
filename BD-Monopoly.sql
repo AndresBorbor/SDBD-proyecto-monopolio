@@ -784,4 +784,12 @@ GRANT EXECUTE ON PROCEDURE bd_monopoly.sp_consultarPropiedadJugador TO 'jugador'
 GRANT SELECT ON bd_monopoly.reporteTerrenosNoDisponibles TO 'jugador'@'localhost';
 GRANT SELECT ON bd_monopoly.reporteTerrenosDisponibles TO 'jugador'@'localhost';
 
+delimiter /
+	create trigger deleteTarjeta
+    before delete on tarjeta
+    for each row
+    begin
+		delete from tarjeta_jugador where tarjeta = old.id_tarjeta;
+    end;
+/delimiter ;
 
