@@ -793,3 +793,45 @@ delimiter /
     end;
 /delimiter ;
 
+delimiter /
+create procedure sp_eliminarTarjeta(in idTarjetaP int)
+	begin
+		delete from tarjeta where id_tarjeta = 1;
+    end;
+/ delimiter ;
+
+delimiter /
+create procedure sp_editarTarjeta(in idTarjetaP int, descP varchar(50), out mensajeSalida varchar(100))
+	begin
+		declare exit handler for sqlexception
+        begin
+			set mensajeSalida = "Hubo un error en la edicion";
+			rollback;
+		end;
+        start transaction;
+        set @validar = (select id_tarjeta from tarjeta where id_tarjeta = idTarjetaP);
+        if @validar is null then
+			set mensajeSalida = "El id de tarjeta no existe";
+            rollback;
+		else
+			UPDATE tarjeta set descripcion = descP where id_tarjeta = idTarjetaP;
+            commit;
+		end if;
+        
+    end;
+/ delimiter ;
+
+delimiter /
+create procedure sp_eliminarJugador(in nombreP varchar(25),fichaP varchar(25))
+begin
+delete from jugador where nombre = nombreP and ficha = fichaP;
+end
+/ delimiter ;
+describe terreno;
+delimiter /
+create procedure sp_eliminarTerreno(in nombreTerrenoP varchar(25))
+begin
+delete from terreno where nombre = nombreTerrenoP;
+end
+
+/ delimiter ;
