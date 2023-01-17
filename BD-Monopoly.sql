@@ -643,3 +643,16 @@ delimiter /
 
 /delimiter ;
 
+delimiter /
+create trigger eliminarJugador
+	before delete on jugador
+    for each row 
+    begin
+		delete from compra where jugador = old.id_jugador;
+		delete from Lanzamiento where jugador = old.id_jugador;
+        delete from tarjeta_jugador where jugador = old.id_jugador;
+        delete from venta where jugador = old.id_jugador;
+        
+    end;
+/delimiter ;
+
