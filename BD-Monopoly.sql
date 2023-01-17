@@ -737,3 +737,51 @@ create procedure sp_ingresarJugador(in NombreP varchar(50), dineroBanco int, din
 		);
 	end
 / delimiter ;
+
+-- reporte jugadores actuales
+use bd_monopoly;
+create view reporteJugadoresActuales as
+	select id_jugador, nombre, ficha 
+    from jugador;
+
+
+create view reporteTerrenosNoDisponibles as
+	select * from terreno where id_terreno in (select terreno from compra join venta using(terreno)) union (
+    select * from terreno where id_terreno in (select terreno from compra c join venta v using(terreno) 
+    group by terreno having max(c.turno) > max(v.turno)));
+
+drop view reporteTerrenosNoDisponiblse;
+create view reporteTerrenosDisponibles as
+	select * from terreno where id_terreno not in (select terreno from compra join venta using(terreno)) union (
+    select * from terreno where id_terreno in (select terreno from compra c join venta v using(terreno) 
+    group by terreno having max(v.turno) > max(c.turno)));
+
+    
+
+create view reporteTarjetasTomadas as
+	select * from tarjeta where id_tarjeta in (select tarjeta from tarjeta_jugador);
+
+
+create index nombreJ on jugador(nombre);
+create index fichaJ on jugador(ficha);
+create index nombreTer on terreno(nombre);
+create index idTer on terreno(id_terreno);
+create index idTar on tarjeta(id_tarjeta);
+
+CREATE USER 'adminJoseph'@'localhost'IDENTIFIED BY 'adminJoseph123';
+CREATE USER 'adminAndres'@'localhost' IDENTIFIED BY 'adminAndres123';
+CREATE USER 'adminGeneral'@'localhost' IDENTIFIED BY 'adminGeneral123';
+CREATE USER 'jugador'@'localhost' IDENTIFIED BY 'jugador123';
+CREATE USER 'banco'@'localhost' IDENTIFIED BY 'banco123';
+
+GRANT ALL PRIVILEGES ON bd_monopoly.* TO 'adminJoseph'@'localhost' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON bd_monopoly.* TO 'adminAndres'@'localhost' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON bd_monopoly.* TO 'adminGeneral'@'localhost' WITH GRANT OPTION;
+
+
+GRANT EXECUTE ON PROCEDURE bd_monopoly.sp_consultarPropiedadJugador TO 'jugador'@'localhost';
+
+GRANT SELECT ON bd_monopoly.reporteTerrenosNoDisponibles TO 'jugador'@'localhost';
+GRANT SELECT ON bd_monopoly.reporteTerrenosDisponibles TO 'jugador'@'localhost';
+
+
